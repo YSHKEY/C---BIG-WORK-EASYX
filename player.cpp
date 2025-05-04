@@ -13,12 +13,16 @@ Player::Player()
                 }
                 break;
             case VK_LEFT:
-                dx = -8;
-                currentState = (y < groundY) ? 3 : 1;
+                if (!isDashing) { // 冲刺过程中不改变状态
+                    dx = -8;
+                    currentState = (y < groundY) ? 3 : 1;
+                }
                 break;
             case VK_RIGHT:
-                dx = 8;
-                currentState = (y < groundY) ? 4 : 2;
+                if (!isDashing) { // 冲刺过程中不改变状态
+                    dx = 8;
+                    currentState = (y < groundY) ? 4 : 2;
+                }
                 break;
             case VK_DOWN:
                 if (canDash) { // 只有在可以冲刺时才能触发
@@ -42,7 +46,7 @@ Player::Player()
             case VK_RIGHT:
                 if (!isDashing) { // 只有在非冲刺状态下停止移动
                     dx = 0;
-                    currentState = (y < groundY) ? currentState : 0;
+                    currentState = (y < groundY) ? 0 : currentState;
                 }
                 break;
             }
@@ -56,25 +60,44 @@ Player::Player()
             dashTimer--;
             if (dashTimer <= 0) {
                 isDashing = false; // 冲刺结束
-                dx = 0;            // 停止水平移动
-                currentState = 0;  // 恢复默认状态
+    
+                // 检查当前是否有方向键被按下
+                if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
+                    dx = -8; // 继续向左移动
+                    currentState = 1; // 左移动状态
+                } else if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
+                    dx = 8; // 继续向右移动
+                    currentState = 2; // 右移动状态
+                } else {
+                    dx = 0; // 停止移动
+                    currentState = 0; // 静止状态
+                }
             }
-        } else {
+        }
+        else {
             // 正常移动逻辑
             dy += gravity;
             x += dx;
             y += dy;
+    
+            // 根据水平速度调整状态
+            if (y == groundY) {
+                currentState = (dx < 0) ? 1 : (dx > 0) ? 2 : 0;
+            }
         }
     
         if (y >= groundY) {
             y = groundY;
             dy = 0;
-            currentState = (dx < 0) ? 1 : (dx > 0) ? 2 : 0;
             canDash = true; // 落地后重置冲刺能力
         }
     
         if (x < 0) x = 0;
-        if (x > 950) x = 950;
+        if (x > 950) {
+            x = 0; // 重置 x 坐标
+            IMAGE map2;
+            loadimage(&map2, "assets/map2.png", 1000, 800); // 加载 map2.png
+        }
     
         // 检测是否掉落到底部
         if (y >= 750) {

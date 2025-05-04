@@ -12,7 +12,7 @@ void drawText() {
 	settextstyle(24, 0, "宋体");//设置文字规格
 	settextcolor(BLACK);//设置文字颜色
 	setbkmode(TRANSPARENT);//设置背景模式
-	outtextxy(250, 250, "left right to move,up to jump,down to flash");//绘制文字
+	outtextxy(250, 250, "left right to move,up to jump,down to dash");//绘制文字
 }
 
 ExMessage msg = { 0 };// 定义消息结构体变量
