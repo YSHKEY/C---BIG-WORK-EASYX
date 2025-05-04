@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build with EasyX",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-o",
+        "main.exe",
+        "main.cpp",
+        "button.cpp",
+        "player.cpp",
+        "game.cpp",
+        "-I",
+        "${workspaceFolder}/include",
+        "-L",
+        "${workspaceFolder}/lib",
+        "-leasyx",
+        "-lgdi32",
+        "-lwinmm"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}
