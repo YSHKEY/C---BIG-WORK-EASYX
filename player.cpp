@@ -1,7 +1,7 @@
 #include "player.h"
 
 Player::Player()
-    : x(100), y(550), dx(0), dy(0), gravity(1), groundY(550), jumpSpeed(-20), dashSpeed(15), dashTime(10), isDashing(false), canDash(true), dashTimer(0), currentState(0) {}
+    : x(100), y(550), dx(0), dy(0), gravity(1), groundY(550), jumpSpeed(-17), dashSpeed(15), dashTime(10), isDashing(false), canDash(true), dashTimer(0), currentState(0) {}
 
     void Player::handleInput(bool keyDown, int key) {
         if (keyDown) {
@@ -13,11 +13,11 @@ Player::Player()
                 }
                 break;
             case VK_LEFT:
-                dx = -5;
+                dx = -8;
                 currentState = (y < groundY) ? 3 : 1;
                 break;
             case VK_RIGHT:
-                dx = 5;
+                dx = 8;
                 currentState = (y < groundY) ? 4 : 2;
                 break;
             case VK_DOWN:
@@ -83,7 +83,7 @@ Player::Player()
     
         return false; // 返回 false 表示角色未死亡
     }
-    
+
     void Player::draw() {
         switch (currentState) {
         case 0:

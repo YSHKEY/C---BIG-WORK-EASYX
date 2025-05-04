@@ -26,13 +26,13 @@ int main() {
 	loadimage(&img1, "assets/background.png", 1000, 800);//加载图片
 	putimage(0, 0, &img1);//输出图片
 
-	//播放音乐 m-media c-control i-interface
-	mciSendString("open assets/background.mp3 alias bgm1", NULL, 0, NULL);
-	mciSendString("play bgm1", NULL, 0, NULL);
-	//音量范围是[0,1000]
-	MCIERROR ret = mciSendString("setaudio bgm1 volume to 100", NULL, 0, NULL);//音量设置
-
-	//双缓冲绘图
+	 // 播放音乐 m-media c-control i-interface
+	 mciSendString("open assets/background.mp3 alias bgm1", NULL, 0, NULL);
+	 mciSendString("play bgm1 repeat", NULL, 0, NULL); // 循环播放背景音乐
+	 // 音量范围是[0,1000]
+	 MCIERROR ret = mciSendString("setaudio bgm1 volume to 100", NULL, 0, NULL); // 音量设置
+	
+	 //双缓冲绘图
 	while (true) {
 		BeginBatchDraw();
 		cleardevice();
