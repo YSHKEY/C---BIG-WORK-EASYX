@@ -1,7 +1,7 @@
 #include "player.h"
 
 Player::Player()
-    : x(100), y(550), dx(0), dy(0), gravity(1), groundY(550), jumpSpeed(-17), dashSpeed(15), dashTime(10), isDashing(false), canDash(true), dashTimer(0), currentState(0) {}
+    : x(100), y(500), dx(0), dy(0), gravity(1), groundY(500), jumpSpeed(-17), dashSpeed(15), dashTime(10), isDashing(false), canDash(true), dashTimer(0), currentState(0) {}
 
     void Player::handleInput(bool keyDown, int key) {
         if (keyDown) {
@@ -95,8 +95,6 @@ Player::Player()
         if (x < 0) x = 0;
         if (x > 950) {
             x = 0; // 重置 x 坐标
-            IMAGE map2;
-            loadimage(&map2, "assets/map2.png", 1000, 800); // 加载 map2.png
         }
     
         // 检测是否掉落到底部

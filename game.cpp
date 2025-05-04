@@ -6,7 +6,7 @@ extern ExMessage msg;
 
 void gameLoop() {
     IMAGE map1;
-    loadimage(&map1, "assets/map1.png", 1000, 200);
+    loadimage(&map1, "assets/map1.png", 1000, 800);
 
     Player player;
 
@@ -14,7 +14,7 @@ void gameLoop() {
         BeginBatchDraw();
         setbkcolor(RGB(255, 204, 170));
         cleardevice();
-        putimage(0, 600, &map1);
+        putimage(0, 0, &map1);
 
         if (peekmessage(&msg, EX_KEY)) {
             switch (msg.message) {
