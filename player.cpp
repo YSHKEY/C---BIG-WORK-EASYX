@@ -1,7 +1,23 @@
 #include "player.h"
+#include <iostream>
 
 Player::Player()
-    : x(100), y(500), dx(0), dy(0), gravity(1), groundY(500), jumpSpeed(-17), dashSpeed(15), dashTime(10), isDashing(false), canDash(true), dashTimer(0), currentState(0) {}
+    : x(100), y(500), dx(0), dy(0), gravity(1), groundY(500), jumpSpeed(-15), dashSpeed(15), dashTime(10), isDashing(false), canDash(true), dashTimer(0), currentState(0) {
+        loadimage(&red_, "assets/red_.png", 50, 50);
+        loadimage(&red, "assets/red.png", 50, 50);
+        loadimage(&redleft_, "assets/redleft_.png", 50, 50);
+        loadimage(&redleft, "assets/redleft.png", 50, 50);
+        loadimage(&redright_, "assets/redright_.png", 50, 50);
+        loadimage(&redright, "assets/redright.png", 50, 50);
+        loadimage(&redleftup_, "assets/redleftup_.png", 50, 50);
+        loadimage(&redleftup, "assets/redleftup.png", 50, 50);
+        loadimage(&redrightup_, "assets/redrightup_.png", 50, 50);
+        loadimage(&redrightup, "assets/redrightup.png", 50, 50);
+        loadimage(&redrunleft_, "assets/redrunleft_.png", 50, 50);
+        loadimage(&redrunleft, "assets/redrunleft.png", 50, 50);
+        loadimage(&redrunright_, "assets/redrunright_.png", 50, 50);
+        loadimage(&redrunright, "assets/redrunright.png", 50, 50);
+    }
 
     void Player::setPosition(int newX, int newY) {
         x = newX;
@@ -28,13 +44,13 @@ Player::Player()
                 break;
             case VK_LEFT:
                 if (!isDashing) { // 冲刺过程中不改变状态
-                    dx = -8;
+                    dx = -5;
                     currentState = (y < groundY) ? 3 : 1;
                 }
                 break;
             case VK_RIGHT:
                 if (!isDashing) { // 冲刺过程中不改变状态
-                    dx = 8;
+                    dx = 5;
                     currentState = (y < groundY) ? 4 : 2;
                 }
                 break;
@@ -77,18 +93,17 @@ Player::Player()
     
                 // 检查当前是否有方向键被按下
                 if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
-                    dx = -8; // 继续向左移动
+                    dx = -5; // 继续向左移动
                     currentState = 1; // 左移动状态
                 } else if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
-                    dx = 8; // 继续向右移动
+                    dx = 5; // 继续向右移动
                     currentState = 2; // 右移动状态
                 } else {
                     dx = 0; // 停止移动
                     currentState = 0; // 静止状态
                 }
             }
-        }
-        else {
+        } else {
             // 正常移动逻辑
             dy += gravity;
             x += dx;
@@ -106,57 +121,59 @@ Player::Player()
             canDash = true; // 落地后重置冲刺能力
         }
     
-        if (x < 0) x = 0;
+        if (x < 0) x = 0; // 防止角色超出左边界
     
         // 检测是否掉落到底部
-        if (y >= 750) {
+        if (y >= 800) { // 窗口底部为死亡区域
             return true; // 返回 true 表示角色死亡
         }
     
         return false; // 返回 false 表示角色未死亡
     }
+
+    void Player::updateGroundY(int currentMap) {
+        if (currentMap == 0) {
+            groundY = 500;
+        } else if (currentMap == 1) {
+            groundY = (x > 525 && x < 615) ? 800 : 500;
+        } else if (currentMap == 2) {
+            groundY = (x > 525 && x < 740) ? 800 : 500;
+        } else if (currentMap == 3) {
+            if(x > 210 && x < 340) groundY = 410;
+            else if(x > 340 && x < 550) groundY = 800;
+            else if (x > 550 && x < 730) groundY = 360;
+            else { groundY = 500; }
+        }
+        fflush(stdout);
+    }
     
     void Player::draw() {
         switch (currentState) {
         case 0:
-            loadimage(&red_, "assets/red_.png", 50, 50);
-            loadimage(&red, "assets/red.png", 50, 50);
             putimage(x, y, &red_, NOTSRCERASE);
             putimage(x, y, &red, SRCINVERT);
             break;
         case 1:
-            loadimage(&redleft_, "assets/redleft_.png", 50, 50);
-            loadimage(&redleft, "assets/redleft.png", 50, 50);
             putimage(x, y, &redleft_, NOTSRCERASE);
             putimage(x, y, &redleft, SRCINVERT);
             break;
         case 2:
-            loadimage(&redright_, "assets/redright_.png", 50, 50);
-            loadimage(&redright, "assets/redright.png", 50, 50);
             putimage(x, y, &redright_, NOTSRCERASE);
             putimage(x, y, &redright, SRCINVERT);
             break;
         case 3:
-            loadimage(&redleftup_, "assets/redleftup_.png", 50, 50);
-            loadimage(&redleftup, "assets/redleftup.png", 50, 50);
             putimage(x, y, &redleftup_, NOTSRCERASE);
             putimage(x, y, &redleftup, SRCINVERT);
             break;
         case 4:
-            loadimage(&redrightup_, "assets/redrightup_.png", 50, 50);
-            loadimage(&redrightup, "assets/redrightup.png", 50, 50);
             putimage(x, y, &redrightup_, NOTSRCERASE);
             putimage(x, y, &redrightup, SRCINVERT);
             break;
         case 5:
-            loadimage(&redrunleft_, "assets/redrunleft_.png", 50, 50);
-            loadimage(&redrunleft, "assets/redrunleft.png", 50, 50);
             putimage(x, y, &redrunleft_, NOTSRCERASE);
             putimage(x, y, &redrunleft, SRCINVERT);
             break;
         case 6:
-            loadimage(&redrunright_, "assets/redrunright_.png", 50, 50);
-            loadimage(&redrunright, "assets/redrunright.png", 50, 50);
             putimage(x, y, &redrunright_, NOTSRCERASE);
             putimage(x, y, &redrunright, SRCINVERT);
             break;

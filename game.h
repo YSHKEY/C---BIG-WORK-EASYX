@@ -3,6 +3,7 @@
 
 #include "player.h"
 
+void showGameOverScreen();
 void gameLoop();
 void playDeathAnimation(int x, int y);
 
