@@ -3,6 +3,20 @@
 Player::Player()
     : x(100), y(500), dx(0), dy(0), gravity(1), groundY(500), jumpSpeed(-17), dashSpeed(15), dashTime(10), isDashing(false), canDash(true), dashTimer(0), currentState(0) {}
 
+    void Player::setPosition(int newX, int newY) {
+        x = newX;
+        y = newY;
+    }
+    
+    void Player::resetState() {
+        dx = 0;
+        dy = 0;
+        isDashing = false;
+        canDash = true;
+        dashTimer = 0;
+        currentState = 0;
+    }
+
     void Player::handleInput(bool keyDown, int key) {
         if (keyDown) {
             switch (key) {
@@ -93,9 +107,6 @@ Player::Player()
         }
     
         if (x < 0) x = 0;
-        if (x > 950) {
-            x = 0; // 重置 x 坐标
-        }
     
         // 检测是否掉落到底部
         if (y >= 750) {
@@ -104,7 +115,7 @@ Player::Player()
     
         return false; // 返回 false 表示角色未死亡
     }
-
+    
     void Player::draw() {
         switch (currentState) {
         case 0:

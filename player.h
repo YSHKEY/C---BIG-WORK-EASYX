@@ -30,6 +30,9 @@ public:
     void draw();
     int getX() const { return x; }
     int getY() const { return y; }
+    void setPosition(int newx, int newy);
+    void resetState();
+    void updateGroundY(int currentMap);
 };
 
 #endif // PLAYER_H

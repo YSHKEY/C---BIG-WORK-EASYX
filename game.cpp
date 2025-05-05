@@ -5,17 +5,26 @@
 extern ExMessage msg;
 
 void gameLoop() {
-    IMAGE map1;
-    loadimage(&map1, "assets/map1.png", 1000, 800);
+    // 加载地图资源
+    IMAGE maps[3];
+    loadimage(&maps[0], "assets/map1.png", 1000, 800);
+    loadimage(&maps[1], "assets/map2.png", 1000, 800);
+    loadimage(&maps[2], "assets/map3.png", 1000, 800);
 
     Player player;
+    int currentMap = 0; // 当前地图编号（从 0 开始）
 
     while (true) {
-        BeginBatchDraw();
-        setbkcolor(RGB(255, 204, 170));
-        cleardevice();
-        putimage(0, 0, &map1);
+        BeginBatchDraw(); // 开始双缓冲绘图
+        cleardevice();    // 清除屏幕内容
 
+        // 绘制当前地图
+        putimage(0, 0, &maps[currentMap]);
+
+        // 绘制角色
+        player.draw();
+
+        // 捕获键盘输入
         if (peekmessage(&msg, EX_KEY)) {
             switch (msg.message) {
             case WM_KEYDOWN:
@@ -27,16 +36,24 @@ void gameLoop() {
             }
         }
 
-        // 更新玩家状态并检测是否死亡
+        // 更新角色状态并检测是否死亡
         if (player.update()) {
             playDeathAnimation(player.getX(), player.getY());
-            break; // 退出游戏循环
+            break; // 如果角色死亡，退出游戏循环
         }
 
-        player.draw();
+        // 检测地图切换
+        if (player.getX() > 950) { // 当角色到达地图右侧
+            currentMap = (currentMap + 1) % 3; // 循环切换地图
+            player.setPosition(0, player.getY()); // 重置角色位置到地图左侧
+            player.resetState(); // 重置角色状态
 
-        EndBatchDraw();
-        Sleep(10);
+            // 调试输出
+            printf("地图切换到: %d\n", currentMap + 1);
+        }
+
+        EndBatchDraw(); // 结束双缓冲绘图
+        Sleep(10);      // 控制帧率
     }
 }
 
