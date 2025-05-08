@@ -8,7 +8,7 @@ class Player {
 private:
     int x, y;
     int dx, dy;
-    const int gravity;
+    int gravity;
     int groundY;
     const int jumpSpeed;
     const int dashSpeed;  // 冲刺速度
@@ -22,11 +22,10 @@ private:
     IMAGE redrunleft, redrunleft_, redrunright, redrunright_;
 
     int currentState;
-
 public:
     Player();
     void handleInput(bool keyDown, int key);
-    bool update();
+    bool update(int currentMap);
     void draw();
     int getX() const { return x; }
     int getY() const { return y; }

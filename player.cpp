@@ -2,7 +2,7 @@
 #include <iostream>
 
 Player::Player()
-    : x(100), y(500), dx(0), dy(0), gravity(1), groundY(500), jumpSpeed(-15), dashSpeed(15), dashTime(10), isDashing(false), canDash(true), dashTimer(0), currentState(0) {
+    : x(100), y(500), dx(0), dy(0), gravity(1), groundY(500), jumpSpeed(-18), dashSpeed(15), dashTime(10), isDashing(false), canDash(true), dashTimer(0), currentState(0) {
         loadimage(&red_, "assets/red_.png", 50, 50);
         loadimage(&red, "assets/red.png", 50, 50);
         loadimage(&redleft_, "assets/redleft_.png", 50, 50);
@@ -44,13 +44,13 @@ Player::Player()
                 break;
             case VK_LEFT:
                 if (!isDashing) { // 冲刺过程中不改变状态
-                    dx = -5;
+                    dx = -7;
                     currentState = (y < groundY) ? 3 : 1;
                 }
                 break;
             case VK_RIGHT:
                 if (!isDashing) { // 冲刺过程中不改变状态
-                    dx = 5;
+                    dx = 7;
                     currentState = (y < groundY) ? 4 : 2;
                 }
                 break;
@@ -83,7 +83,7 @@ Player::Player()
         }
     }
 
-    bool Player::update() {
+    bool Player::update(int currentMap) {
         if (isDashing) {
             // 冲刺逻辑
             x += dx;
@@ -120,7 +120,39 @@ Player::Player()
             dy = 0;
             canDash = true; // 落地后重置冲刺能力
         }
+
+        // 编写墙体功能
+        if (currentMap == 0) {
+        }
+
+        if (currentMap == 1) { // 地图2
+            if(groundY == 800 && y > 500){
+                if(x < 530)x = 530;
+                if(x > 610)x = 610;
+            }
+        }
+
+        if (currentMap == 2) { // 地图3
+            if(groundY == 800 && y > 500){
+                if(x < 530)x = 530;
+                if(x > 735)x = 735;
+            }
+        }
+
+        if (currentMap == 3) { // 地图4
+            if(groundY == 500 && y > 410){
+                if(x > 155)x = 155;
+            }
+            if(groundY == 460 && y > 360){
+                if(x < 735)x = 735;
+            }
+            if(groundY == 800){
+                if(y > 410 && x < 345)x = 345;
+                if(y > 360 && x > 545)x = 545;
+            }
+        }
     
+
         if (x < 0) x = 0; // 防止角色超出左边界
     
         // 检测是否掉落到底部
@@ -134,14 +166,18 @@ Player::Player()
     void Player::updateGroundY(int currentMap) {
         if (currentMap == 0) {
             groundY = 500;
-        } else if (currentMap == 1) {
+        }
+        else if (currentMap == 1) {
             groundY = (x > 525 && x < 615) ? 800 : 500;
-        } else if (currentMap == 2) {
+        }
+        else if (currentMap == 2) {
             groundY = (x > 525 && x < 740) ? 800 : 500;
-        } else if (currentMap == 3) {
-            if(x > 210 && x < 340) groundY = 410;
-            else if(x > 340 && x < 550) groundY = 800;
-            else if (x > 550 && x < 730) groundY = 360;
+        }
+        else if (currentMap == 3) {
+            if(x > 160 && x <= 340) groundY = 410;
+            else if(x > 340 && x <= 550) groundY = 800;
+            else if(x > 550 && x <= 730) groundY = 360;
+            else if(x > 730) groundY = 460;
             else { groundY = 500; }
         }
         fflush(stdout);

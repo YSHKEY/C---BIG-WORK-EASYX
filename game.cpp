@@ -75,7 +75,7 @@ void gameLoop() {
         }
 
         // 更新角色状态并检测是否死亡
-        if (player.update()) {
+        if (player.update(currentMap)) {
             EndBatchDraw(); // 确保当前帧绘制完成
             playDeathAnimation(player.getX(), player.getY()); // 播放死亡动画
             showGameOverScreen(); // 显示 "Game Over" 文本
