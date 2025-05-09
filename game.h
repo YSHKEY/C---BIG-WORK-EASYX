@@ -5,6 +5,6 @@
 
 void showGameOverScreen();
 void gameLoop();
-void playDeathAnimation(int x, int y);
+void victory();
 
 #endif // GAME_H

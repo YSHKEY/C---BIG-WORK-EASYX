@@ -151,7 +151,66 @@ Player::Player()
                 if(y > 360 && x > 545)x = 545;
             }
         }
+
+        if (currentMap == 4) {
+            if(groundY == 500 && x < 500 && y > 390){
+                if(x > 300)x = 300;
+            }
+            if(groundY == 390 && x < 500 && y > 300){
+                if(x > 385)x = 385;
+            }
+            if(groundY == 390 && x > 500 && y > 300){
+                if(x < 565)x = 565;
+            }
+            if(groundY == 500 && x > 500 && y > 390){
+                if(x < 650)x = 650;
+            }
+        }
     
+        if (currentMap == 5) {
+            if(groundY == 500 && y > 390){
+                if(x > 445)x = 445;
+            }
+            if(groundY == 390 && y > 285){
+                if(x > 670)x = 670;
+            }
+        }
+
+        if (currentMap == 6) {
+        }
+
+        else if (currentMap == 7) {
+            if(groundY == 800 && x < 360 && y > 500){
+                if(x < 185)x = 185;
+                if(x > 240)x = 240;
+            }
+            if(groundY == 800 && x > 360 && y > 500){
+                if(x < 440)x = 440;
+                if(x > 505)x = 505;
+            }
+        }
+
+        if (currentMap == 8) {
+            if(groundY == 800 && x < 500){
+                if(y > 500 && x < 270)x = 270;
+                if(y > 395 && x > 375)x = 375;
+            }
+            if(groundY == 800 && x > 500){
+                if(y > 395 && x < 570)x = 570;
+                if(y > 500 && x > 735)x = 735;
+            }
+        }
+
+        if (currentMap == 9) {
+            if(groundY == 800 && x < 630){
+                if(y > 105 && x < 170)x = 170;
+                if(y > 600 && x < 500)x = 500;
+            }
+            if(groundY == 800 && x > 630){
+                if(y > 600 && x < 710)x = 570;
+                if(y > 600 && x > 840)x = 840;
+            }
+        }
 
         if (x < 0) x = 0; // 防止角色超出左边界
     
@@ -179,6 +238,42 @@ Player::Player()
             else if(x > 550 && x <= 730) groundY = 360;
             else if(x > 730) groundY = 460;
             else { groundY = 500; }
+        }
+        else if (currentMap == 4) {
+            if(x > 305 && x <= 390) groundY = 390;
+            else if(x > 390 && x <= 560) groundY = 300;
+            else if(x > 560 && x <= 645) groundY = 390;
+            else { groundY = 500; }
+        }
+        else if (currentMap == 5) {
+            if(x > 450 && x <= 675) groundY = 390;
+            else if(x > 675) groundY = 285;
+            else { groundY = 500; }
+        }
+        else if (currentMap == 6) {
+            groundY = 500;
+        }
+        else if (currentMap == 7) {
+            if(x <= 180) groundY = 500;
+            else if(x > 180 && x <= 245) groundY = 800;
+            else if(x > 245 && x <= 440) groundY = 500;
+            else if(x > 440 && x <= 510) groundY = 800;
+            else { groundY = 500; }
+        }
+        else if (currentMap == 8) {
+            if(x > 265 && x <= 380) groundY = 800;
+            else if(x > 380 && x <= 565) groundY = 395;
+            else if(x > 565 && x <= 740) groundY = 800;
+            else { groundY = 500; }
+        }
+        else if (currentMap == 9) {
+            if(x <= 165) groundY = 105;
+            else if(x > 165 && x <= 505) groundY = 800;
+            else if(x > 705 && x <= 845) groundY = 800;
+            else { groundY = 600; }
+        }
+        else if (currentMap == 10) {
+            groundY = 605;
         }
         fflush(stdout);
     }
