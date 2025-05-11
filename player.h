@@ -11,11 +11,11 @@ private:
     int gravity;
     int groundY;
     const int jumpSpeed;
-    const int dashSpeed;  // 冲刺速度
-    const int dashTime;   // 冲刺持续时间（帧数）
-    bool isDashing;       // 是否正在冲刺
-    bool canDash;         // 是否可以冲刺
-    int dashTimer;        // 冲刺计时器
+    const int dashSpeed; // 冲刺速度
+    const int dashTime; // 冲刺持续时间（帧数）
+    bool isDashing; // 是否正在冲刺
+    bool canDash; // 是否可以冲刺
+    int dashTimer; // 冲刺计时器
 
     IMAGE red, redleft, redright, red_, redleft_, redright_;
     IMAGE redleftup, redleftup_, redrightup, redrightup_;

@@ -2,11 +2,11 @@
 
 extern ExMessage msg;
 
-bool inArea(int mx, int my, int x, int y, int w, int h) {
+bool inArea(int mx, int my, int x, int y, int w, int h) { // 定位鼠标
     return mx > x && mx < x + w && my > y && my < y + h;
 }
 
-bool button(int x, int y, int w, int h, const char* text) {
+bool button(int x, int y, int w, int h, const char* text) { // 按钮绘制，变色
     if (inArea(msg.x, msg.y, x, y, w, h)) {
         setfillcolor(RGB(50, 129, 142));
         settextcolor(RGB(0, 0, 0));

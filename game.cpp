@@ -8,17 +8,17 @@ extern ExMessage msg;
 
 void showGameOverScreen() {
     // 停止背景音乐
-    mciSendString("close bgm1", NULL, 0, NULL); // 假设背景音乐的别名是 "bgm"
+    mciSendString("close bgm1", NULL, 0, NULL);
 
     // 播放游戏结束音效
     mciSendString("open assets/gameover.mp3 alias badend", NULL, 0, NULL);
     mciSendString("play badend", NULL, 0, NULL);
 
     // 显示 "Game Over" 文本
-    cleardevice(); // 清除屏幕内容
+    cleardevice();
     settextstyle(30, 0, "宋体");
     settextcolor(RED);
-    outtextxy(400, 300, "Game Over"); // 显示 "Game Over" 文本
+    outtextxy(400, 300, "Game Over");
     outtextxy(320, 350, "Press any key to exit..."); // 提示用户按键退出
 
     Sleep(2500);
@@ -31,7 +31,7 @@ void showGameOverScreen() {
                 break; // 退出循环
             }
         }
-        Sleep(50); // 减少 CPU 占用
+        Sleep(50);
     }
 
     // 直接退出程序
@@ -58,7 +58,7 @@ void gameLoop() {
 
     while (true) {
         BeginBatchDraw(); // 开始双缓冲绘图
-        cleardevice();    // 清除屏幕内容
+        cleardevice();
 
         // 绘制当前地图
         putimage(0, 0, &maps[currentMap]);
@@ -93,7 +93,7 @@ void gameLoop() {
             currentMap += 1; // 切换地图
             if (currentMap == 9) player.setPosition(0, 105);
             else{ player.setPosition(0, player.getY()); } // 重置角色位置到地图左侧
-            player.resetState();                  // 重置角色状态
+            player.resetState(); // 重置角色状态
         }
 
         // 游戏胜利结束
@@ -112,14 +112,14 @@ void gameLoop() {
 
 void victory(){
     // 停止背景音乐
-    mciSendString("close bgm1", NULL, 0, NULL); // 假设背景音乐的别名是 "bgm"
+    mciSendString("close bgm1", NULL, 0, NULL);
 
     // 播放游戏胜利结束音效
     mciSendString("open assets/victory.mp3 alias goodend", NULL, 0, NULL);
     mciSendString("play goodend", NULL, 0, NULL);
 
     // 显示 "Victory" 文本
-    cleardevice(); // 清除屏幕内容
+    cleardevice();
     settextstyle(30, 0, "宋体");
     settextcolor(RED);
     outtextxy(400, 300, "Victory");
@@ -135,7 +135,7 @@ void victory(){
                 break; // 退出循环
             }
         }
-        Sleep(50); // 减少 CPU 占用
+        Sleep(50);
     }
 
     // 直接退出程序

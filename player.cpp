@@ -125,21 +125,21 @@ Player::Player()
         if (currentMap == 0) {
         }
 
-        if (currentMap == 1) { // 地图2
+        if (currentMap == 1) {
             if(groundY == 800 && y > 500){
                 if(x < 530)x = 530;
                 if(x > 610)x = 610;
             }
         }
 
-        if (currentMap == 2) { // 地图3
+        if (currentMap == 2) {
             if(groundY == 800 && y > 500){
                 if(x < 530)x = 530;
                 if(x > 735)x = 735;
             }
         }
 
-        if (currentMap == 3) { // 地图4
+        if (currentMap == 3) {
             if(groundY == 500 && y > 410){
                 if(x > 155)x = 155;
             }
